@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use Braintree\ClientToken;
+use Braintree\Transaction;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,9 +15,27 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
+        $token = ClientToken::generate();
+
         return $this->render('default/index.html.twig', array(
-            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
+            'token' => $token,
+        ));
+    }
+
+    /**
+     * @Route("/checkout", name="checkout")
+     */
+    public function checkoutAction(Request $request)
+    {
+        $nonce = $request->get('payment_method_nonce');
+
+        $result = Transaction::sale(array(
+            'amount' => '10.00',
+            'paymentMethodNonce' => $nonce,
+        ));
+
+        return $this->render('default/checkout.html.twig', array(
+            'result' => $result,
         ));
     }
 }

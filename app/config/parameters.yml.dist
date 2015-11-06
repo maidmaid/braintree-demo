@@ -17,3 +17,8 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    app_braintree_environment:  sandbox
+    app_braintree_merchantid:   ~
+    app_braintree_publickey:    ~
+    app_braintree_privatekey:   ~
