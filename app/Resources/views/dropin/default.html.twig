@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <form id="checkout" method="post" action="{{ path('dropin_checkout') }}">
+        <div id="payment-form"></div>
+        <input type="submit" value="Pay $10">
+    </form>
+
+    <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+    <script>
+        braintree.setup("{{ token }}", "dropin", {
+            container: "payment-form"
+        });
+    </script>
+{% endblock %}
