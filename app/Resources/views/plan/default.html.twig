@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for plan in plans %}
+        <p>{{ plan.name }} - {{ plan.price }}</p>
+    {% endfor %}
+{% endblock %}
